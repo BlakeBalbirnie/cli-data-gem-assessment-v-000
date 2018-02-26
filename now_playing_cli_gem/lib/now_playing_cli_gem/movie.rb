@@ -3,6 +3,12 @@ class NowPlayingCliGem::Movie
   # Automatically sets up getter and setter methods for the instance variables
   attr_accessor :title, :details, :director
 
+  def initialize
+    title = title
+    details = details
+    director = director
+  end
+
   # Returning scraped data of the movies
   def self.today
     self.scrape_movies
@@ -23,10 +29,11 @@ class NowPlayingCliGem::Movie
     doc = Nokogiri::HTML(open("http://www.imdb.com/title/tt4500922/?ref_=inth_ov_tt"))
 
     # Movie class instance
-    movie = self.new
-    movie.title = doc.search("h1[itemprop='name']").text.strip
-    movie.details = doc.search("div[class='summary_text']").text.strip
-    movie.director = doc.search("[itemprop='director'] [itemprop='name']").text.strip
+    title = doc.search("h1[itemprop='name']").text.strip
+    details = doc.search("div[class='summary_text']").text.strip
+    director = doc.search("[itemprop='director'] [itemprop='name']").text.strip
+    movie = self.new(title, details, director)
+    
     movie
   end
 
@@ -35,10 +42,11 @@ class NowPlayingCliGem::Movie
     doc = Nokogiri::HTML(open("http://www.imdb.com/title/tt5478478/?ref_=inth_ov_tt"))
 
     # Movie class instance
-    movie = self.new
-    movie.title = doc.search("h1[itemprop='name']").text.strip
-    movie.details = doc.search("div[class='summary_text']").text.strip
-    movie.director = doc.search("[itemprop='director'] [itemprop='name']").text.strip
+    title = doc.search("h1[itemprop='name']").text.strip
+    details = doc.search("div[class='summary_text']").text.strip
+    director = doc.search("[itemprop='director'] [itemprop='name']").text.strip
+    movie = self.new(title, details, director)
+    
     movie
   end
 
